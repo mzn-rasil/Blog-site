@@ -33,11 +33,15 @@ createServer({
                 token: user.id
             }
         });
+
+        this.post("/users/signup", (schema, request) => {
+            const userInfo = JSON.parse(request.requestBody);
+
+            console.log(userInfo);
+        })
     },
 
     seeds(server) {
-        server.create("user", { email: "rasil.npl@gmail.com", password: "rasil123" })
-        server.create("user", { email: "upama@gmail.com", password: "upama123" })
-        server.create("user", { email: "sadichhya@gmail.com", password: "sadichhya123" })
+
     }
 })
