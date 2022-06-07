@@ -28,7 +28,6 @@ function LoginStep3Page() {
             console.log(error);
         }
         setProfileImageURL(newImageURL);
-        console.log(profileImage);
     }, [profileImage]);
 
     function submitHandler(data) {
@@ -39,15 +38,18 @@ function LoginStep3Page() {
         formData.append("firstName", userData.firstName);
         formData.append("lastName", userData.lastName);
         if (userData.hasPhoneNumber) formData.append("phoneNumber", userData.phoneNumber);
-        formData.append("profilePicture", profileImage);
+        formData.append("profilePicture", profileImage[0]);
+        console.log(formData.getAll("email"))
 
         fetch("/api/users/signup", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData),
+            body: formData,
         })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                navigate("../BlogPage");
+            })
     }
 
     function handleImageChange(event) {
@@ -58,8 +60,6 @@ function LoginStep3Page() {
         setProfileImage([]);
         setProfileImageURL([]);
     }
-
-    console.log(profileImage);
 
     return (
         <SignUpLayout>

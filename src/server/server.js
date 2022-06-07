@@ -35,9 +35,9 @@ createServer({
         });
 
         this.post("/users/signup", (schema, request) => {
-            const userInfo = JSON.parse(request.requestBody);
+            const formData = request.requestBody;
 
-            console.log(userInfo);
+            console.log(formData);
         })
     },
 
