@@ -40,7 +40,7 @@ function LoginStep1Page() {
 
     return (
         <SignUpLayout>
-            <p className="flex justify-center text-sm">Already have an account? <a href="#nothing" className="text-blue-700 underline"><Link to="/login">Log in</Link></a></p>
+            <p className="flex justify-center text-sm">Already have an account?<Link className="text-blue-700 underline" to="/login">Log in</Link></p>
             <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="rounded-md shadow-sm -space-y-px">

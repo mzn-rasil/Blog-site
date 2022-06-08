@@ -48,7 +48,7 @@ function LoginStep3Page() {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                navigate("../BlogPage");
+                navigate("../");
             })
     }
 

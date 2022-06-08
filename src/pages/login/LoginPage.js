@@ -2,15 +2,16 @@ import LoginLayout from "../../components/LoginLayout";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 const schema = yup.object().shape({
     email: yup
         .string("Email cannot be a number only")
         .email("Please enter a valid email")
-        .required(),
+        .required("Email is required"),
     password: yup
         .string()
-        .required()
+        .required("Password is required")
 });
 
 function LoginPage() {
@@ -31,6 +32,7 @@ function LoginPage() {
 
     return (
         <LoginLayout>
+            <a className="flex justify-center text-sm text-blue-700 underline" href="#nothing"><Link to="/signUpStep1">Create a new account</Link></a>
             <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="rounded-md shadow-sm -space-y-px">
@@ -81,7 +83,7 @@ function LoginPage() {
                     </button>
                 </div>
             </form>
-        </LoginLayout>
+        </LoginLayout >
     )
 }
 
