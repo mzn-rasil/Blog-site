@@ -11,7 +11,7 @@ function Navbar() {
                     <div>
                         <Link to="/">
                             <img
-                                className="mx-auto h-12 w-auto mr-12"
+                                className="mx-auto h-12 w-auto mr-6"
                                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                                 alt="Workflow"
                             />
@@ -33,17 +33,7 @@ function Navbar() {
                                     <line x1={6} y1={6} x2={18} y2={18} />
                                 </svg>
                             </button>
-                            <ul className="flex text-3xl md:text-base items-center py-10 md:flex flex-col md:flex-row justify-center fixed md:relative top-0 bottom-0 left-0 right-0 bg-white md:bg-transparent z-20">
-                                <li className="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0">
-                                    <a href="#noth">About Us</a>
-                                </li>
-                                <li className="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-                                    <a href="#noth">Drafts</a>
-                                </li>
-                                <li className="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-                                    <a href="#noth">Bookmarks</a>
-                                </li>
-                            </ul>
+                            <h1 className="text-3xl font-sans text-indigo-700 font-black py-7"> Pen And Paper </h1>
                         </div>
                     </div>
                 </div>

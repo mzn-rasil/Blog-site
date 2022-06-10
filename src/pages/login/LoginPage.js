@@ -1,4 +1,4 @@
-import LoginLayout from "../../components/LoginLayout";
+import LoginLayout from "../../ui/LoginLayout";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";

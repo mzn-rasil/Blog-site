@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlogPage from "./pages/blogs/BlogPage";
-import BlogForm from "./pages/blogs/BlogForm";
+import BlogFeaturesPage from "./pages/blogs/BlogFeaturesPage";
 import LoginPage from "./pages/login/LoginPage";
 import SignUpStep1Page from "./pages/signup/SignUpStep1Page";
 import SignUpStep2Page from "./pages/signup/SignUpStep2Page";
@@ -15,7 +15,7 @@ function App() {
         <Route path="/signUpStep2" element={<SignUpStep2Page />} />
         <Route path="/signUpStep3" element={<SignUpStep3Page />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/blogForm" element={<BlogForm />} />
+        <Route path="/blogForm" element={<BlogFeaturesPage />} />
       </Routes>
     </Router>
   );

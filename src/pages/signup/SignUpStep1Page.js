@@ -1,4 +1,4 @@
-import SignUpLayout from "../../components/SignUpLayout";
+import SignUpLayout from "../../ui/SignUpLayout";
 import { useData } from "../../store/UserContext";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

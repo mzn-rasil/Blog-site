@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import SignUpLayout from "../../components/SignUpLayout";
+import SignUpLayout from "../../ui/SignUpLayout";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useData } from "../../store/UserContext";

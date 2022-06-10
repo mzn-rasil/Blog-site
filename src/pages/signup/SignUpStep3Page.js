@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import SignUpLayout from "../../components/SignUpLayout";
+import SignUpLayout from "../../ui/SignUpLayout";
 import { useData } from "../../store/UserContext";
 
 function LoginStep3Page() {
