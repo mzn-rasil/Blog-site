@@ -9,11 +9,13 @@ function Navbar() {
             <div className="py-5 md:py-0 container mx-auto flex items-center justify-between">
                 <div aria-label="Home. logo" role="img" className="flex flex-row justify-between items-center md:flex md:flex-row md:items-center md:justify-center">
                     <div>
-                        <img
-                            className="mx-auto h-12 w-auto mr-12"
-                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                            alt="Workflow"
-                        />
+                        <Link to="/">
+                            <img
+                                className="mx-auto h-12 w-auto mr-12"
+                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                alt="Workflow"
+                            />
+                        </Link>
                     </div>
                     <div>
                         <button onClick={() => setShow(!show)} className={`${show ? 'hidden' : ''} sm:block md:hidden text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500`}>
@@ -45,7 +47,7 @@ function Navbar() {
                         </div>
                     </div>
                 </div>
-                <button className="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-indigo-700 text-indigo-700 px-4 sm:px-8 py-1 sm:py-3 text-sm">
+                <button className="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-indigo-500 hover:text-white rounded border border-indigo-700 text-indigo-700 px-4 sm:px-8 py-1 sm:py-3 text-sm transition-all">
                     <Link to="/signUpStep1">
                         Sign Up
                     </Link>
