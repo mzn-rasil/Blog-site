@@ -5,7 +5,7 @@ function Navbar() {
     const [show, setShow] = useState(false);
 
     return (
-        <nav className="w-full border-b">
+        <nav className="w-full border-b fixed top-0 left-0 right-0 bg-gray-100">
             <div className="py-5 md:py-0 container mx-auto flex items-center justify-between">
                 <div aria-label="Home. logo" role="img" className="flex flex-row justify-between items-center md:flex md:flex-row md:items-center md:justify-center">
                     <div>

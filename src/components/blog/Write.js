@@ -17,7 +17,7 @@ function Write() {
     }
 
     return (
-        <form className="container w-2/4 p-3 mx-auto mt-6 rounded-md" onSubmit={handleSubmit(submitHandler)}>
+        <form className="container w-2/4 p-3 mx-auto mt-6" onSubmit={handleSubmit(submitHandler)}>
             <div className="flex justify-end items-center mb-9 gap-6">
 
                 <Listbox
@@ -85,7 +85,6 @@ function Write() {
             />
             <textarea
                 rows="20"
-                contentEditable
                 placeholder="Tell your story..."
                 className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none"
                 {...register("story")}

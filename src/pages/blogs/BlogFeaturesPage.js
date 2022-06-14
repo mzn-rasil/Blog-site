@@ -1,11 +1,12 @@
-import Write from "../../components/blog/Write";
-import MainLayout from "../../ui/MainLayout";
+import Write from "../../components/blog/Write"
+import Sidebar from "../../components/Sidebar";
 
 function BlogFeaturesPage() {
     return (
-        <MainLayout>
+        <div>
+            <Sidebar />
             <Write />
-        </MainLayout>
+        </div>
     );
 }
 

@@ -39,16 +39,16 @@ function LoginStep3Page() {
         formData.append("lastName", userData.lastName);
         if (userData.hasPhoneNumber) formData.append("phoneNumber", userData.phoneNumber);
         formData.append("profilePicture", profileImage[0]);
-        console.log(formData.getAll("email"))
+        // console.log(formData.getAll("email"))
 
-        fetch("/api/users/signup", {
+        fetch("http://127.0.0.1:8000/register", {
             method: "POST",
             body: formData,
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                navigate("../");
+                // navigate("../");
             })
     }
 
