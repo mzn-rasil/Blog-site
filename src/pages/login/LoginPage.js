@@ -2,7 +2,8 @@ import LoginLayout from "../../ui/LoginLayout";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Error from "../../components/error/Error";
 
 const schema = yup.object().shape({
     email: yup
@@ -15,7 +16,7 @@ const schema = yup.object().shape({
 });
 
 function LoginPage() {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, setError } = useForm({
         defaultValues: {
             email: undefined,
             password: undefined,
@@ -23,16 +24,60 @@ function LoginPage() {
         mode: "onBlur",
         resolver: yupResolver(schema),
     });
+    const navigate = useNavigate();
 
-    function submitHandler(data) {
-        console.log(data);
+    async function submitHandler(data) {
+        // backend ma oauth2.py file ma as form-data save gareko le
+        const formData = new FormData();
+        formData.append("username", data.email); // backend ma email ko lagi username bhanera cha
+        formData.append("password", data.password);
+        console.log(formData);
 
         // Send a POST request to the server
+        // esma files haru pathako chaina tara form data use garirako chu
+        // kina bhane backend ma Form use gareko raixa
+        try {
+            const response = await fetch("http://127.0.0.1:8000/login", {
+                method: "POST",
+                body: formData,
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+
+            if (responseData.access_token) {
+                localStorage.setItem("token", `${responseData.token_type} ${responseData.access_token}`)
+                navigate("../");
+            } else {
+                setError("emptyToken", {
+                    type: "manual",
+                    message: responseData.detail,
+                }, {
+                    shouldFocus: true
+                })
+
+                setError("email", {
+                    type: "focus",
+                    message: "Check your email again"
+                }, {
+                    shouldFocus: true
+                })
+
+                setError("password", {
+                    type: "focus",
+                    message: "Enter your password again"
+                }, {
+                    shouldFocus: true
+                })
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <LoginLayout>
-            <a className="flex justify-center text-sm text-blue-700 underline" href="#nothing"><Link to="/signUpStep1">Create a new account</Link></a>
+            <NavLink to="/signUpStep1" className={`flex justify-center text-sm text-blue-700 underline`}>Create a new account</NavLink>
+            <Error>{errors?.emptyToken?.message}</Error>
             <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="rounded-md shadow-sm -space-y-px">
@@ -49,7 +94,7 @@ function LoginPage() {
                             placeholder="Email address"
                             {...register("email")}
                         />
-                        <p className="mt-1 ml-3 text-sm text-red-600">{errors?.email?.message}</p>
+                        <Error>{errors?.email?.message}</Error>
                     </div>
                     <br />
                     <div>
@@ -65,7 +110,7 @@ function LoginPage() {
                             placeholder="Password"
                             {...register("password")}
                         />
-                        <p className="mt-1 ml-3 text-sm text-red-600">{errors?.password?.message}</p>
+                        <Error>{errors?.password?.message}</Error>
                     </div>
                 </div>
 

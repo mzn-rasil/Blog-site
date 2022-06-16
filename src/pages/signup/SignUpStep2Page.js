@@ -4,6 +4,7 @@ import SignUpLayout from "../../ui/SignUpLayout";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useData } from "../../store/UserContext";
+import Error from "../../components/error/Error";
 
 const schema = yup.object().shape({
     firstName: yup
@@ -43,7 +44,7 @@ function LoginStep2Page() {
 
     return (
         <SignUpLayout>
-            <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
+            <form className="mt-8 space-y-6" method="POST" onSubmit={handleSubmit(submitHandler)} >
 
                 <div className="flex justify-center">
                     <div className="mb-1 xl:w-full">
@@ -55,7 +56,7 @@ function LoginStep2Page() {
                             placeholder="First Name"
                             {...register("firstName")}
                         />
-                        <p className="m-1 ml-3 text-sm text-red-600">{errors?.firstName?.message}</p>
+                        <Error>{errors?.firstName?.message}</Error>
                     </div>
                 </div>
 
@@ -69,7 +70,7 @@ function LoginStep2Page() {
                             placeholder="Last Name"
                             {...register("lastName")}
                         />
-                        <p className="m-1 ml-3 text-sm text-red-600">{errors?.lastName?.message}</p>
+                        <Error>{errors?.lastName?.message}</Error>
                     </div>
                 </div>
 
@@ -100,7 +101,7 @@ function LoginStep2Page() {
                                         placeholder="Phone Number"
                                         {...register("phoneNumber")}
                                     />
-                                    <p className="m-1 ml-3 text-sm text-red-600">{errors?.phoneNumber?.message}</p>
+                                    <Error>{errors?.phoneNumber?.message}</Error>
                                 </div>
                             </div>
                         )}

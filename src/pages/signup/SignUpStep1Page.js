@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Error from "../../components/error/Error";
 
 const schema = yup.object().shape({
     email: yup
@@ -42,7 +43,7 @@ function LoginStep1Page() {
         <SignUpLayout>
             <p className="flex justify-center text-sm">Already have an account?<Link className="text-blue-700 underline" to="/login">Log in</Link></p>
             <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
-                <input type="hidden" name="remember" defaultValue="true" />
+                {/* <input type="hidden" name="remember" defaultValue="true" /> */}
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label htmlFor="email-address" className="form-label inline-block mb-2 text-gray-700">
@@ -57,7 +58,7 @@ function LoginStep1Page() {
                             placeholder="Email address"
                             {...register("email")}
                         />
-                        <p className="mt-1 ml-3 text-sm text-red-600">{errors?.email?.message}</p>
+                        <Error>{errors?.email?.message}</Error>
                     </div>
                     <br />
                     <div>
@@ -73,7 +74,7 @@ function LoginStep1Page() {
                             placeholder="Password"
                             {...register("password")}
                         />
-                        <p className="mt-1 ml-3 text-sm text-red-600">{errors?.password?.message}</p>
+                        <Error>{errors?.password?.message}</Error>
                     </div>
                     <br />
                     <div>
@@ -89,7 +90,7 @@ function LoginStep1Page() {
                             placeholder="Confirm Password"
                             {...register("confirmPassword")}
                         />
-                        <p className="mt-1 ml-3 text-sm text-red-600">{errors?.confirmPassword?.message}</p>
+                        <Error>{errors?.confirmPassword?.message}</Error>
                     </div>
 
                 </div>

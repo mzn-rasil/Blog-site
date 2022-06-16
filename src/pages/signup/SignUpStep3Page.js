@@ -30,26 +30,42 @@ function LoginStep3Page() {
         setProfileImageURL(newImageURL);
     }, [profileImage]);
 
-    function submitHandler(data) {
-        // navigate("../blogPage");
-        const formData = new FormData();
-        formData.append("email", userData.email);
-        formData.append("password", userData.password);
-        formData.append("firstName", userData.firstName);
-        formData.append("lastName", userData.lastName);
-        if (userData.hasPhoneNumber) formData.append("phoneNumber", userData.phoneNumber);
-        formData.append("profilePicture", profileImage[0]);
-        // console.log(formData.getAll("email"))
+    // console.log(userData);
 
-        fetch("http://127.0.0.1:8000/register", {
-            method: "POST",
-            body: formData,
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                // navigate("../");
+    async function submitHandler(data) {
+        const formData = new FormData();
+        formData.append("profileImage", profileImage[0]);
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/register", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(userData),
             })
+            console.log(response);
+            const data = await response.json();
+            console.log(data);
+
+            if (data) {
+                try {
+                    const response = await fetch(`http://127.0.0.1:8000/upload/${data.id}`, {
+                        method: "POST",
+                        body: formData
+                    })
+
+                    const profileData = await response.json();
+                    console.log(profileData);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            navigate("../login");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     function handleImageChange(event) {

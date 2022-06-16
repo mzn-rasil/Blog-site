@@ -5,7 +5,7 @@ import { useState } from "react";
 function Write() {
     const [saveOption, setSaveOption] = useState("Choose save option");
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
     function submitHandler(data) {
         const blogData = {
