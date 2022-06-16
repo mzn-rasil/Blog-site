@@ -8,6 +8,7 @@ function LoginStep3Page() {
     const { userData } = useData();
     const [profileImage, setProfileImage] = useState([]);
     const [profileImageURL, setProfileImageURL] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit } = useForm({
         defaultValues: {
             profilePicture: userData.profilePicture,
@@ -33,6 +34,7 @@ function LoginStep3Page() {
     // console.log(userData);
 
     async function submitHandler(data) {
+        setIsLoading(true);
         const formData = new FormData();
         formData.append("profileImage", profileImage[0]);
 
@@ -61,7 +63,7 @@ function LoginStep3Page() {
                     console.log(error);
                 }
             }
-
+            setIsLoading(false);
             navigate("../login");
         } catch (error) {
             console.log(error);
@@ -122,9 +124,17 @@ function LoginStep3Page() {
                         type="submit"
                         className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                        </span>
-                        Sign up
+                        {isLoading ?
+                            <>
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 animate-spin mr-3`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Signing up...
+                            </> :
+                            <>
+                                Sign up
+                            </>
+                        }
                     </button>
                 </div>
             </form>

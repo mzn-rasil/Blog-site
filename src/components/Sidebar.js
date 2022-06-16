@@ -1,19 +1,44 @@
-import { Link, NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+
+async function handleResponse(userId) {
+    const response = await fetch(`http://127.0.0.1:8000/user/${userId}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+}
 
 function Sidebar() {
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const userId = Cookies.get("userId");
+
+        if (userId) {
+            const data = handleResponse(userId);
+
+            // Somehow, data gets returned in the form of Promise, so...
+            data.then(finalData => {
+                setUserData(finalData);
+            })
+            // setUserData(data);
+        }
+    }, []);
+
     return (
         <div className="w-48 mr-52 px-10 py-6 bg-slate-50 h-screen fixed top-0 left-0 bottom-0
                 flex flex-col items-end justify-between border-r-2 border-slate-300
             ">
-            <Link to="/">
-                <div className="mt-6">
-                    <img
-                        className="h-12 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                        alt="Workflow"
-                    />
-                </div>
-            </Link>
+
+            <div className="mt-6">
+                <img
+                    className="h-12 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    alt="Workflow"
+                />
+            </div>
+
 
             <div>
                 <ul className="flex flex-col gap-12 font-monospace pr-2">
@@ -70,9 +95,14 @@ function Sidebar() {
                 </ul >
             </div >
 
-            <div>
-
-            </div>
+            {userData &&
+                <div className="flex flex-col items-center pr-2">
+                    <img src={userData.profileImage} alt="profile"
+                        className="w-10 h-10 rounded-full mb-2 border-2 border-indigo-500"
+                    />
+                    <p className="text-center font-bold text-indigo-500">{userData.firstName}</p>
+                </div>
+            }
         </div >
     );
 }

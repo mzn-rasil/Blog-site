@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
     const [show, setShow] = useState(false);
-    const [user, setUser] = useState(null);
-
-
 
     return (
         <nav className="w-full border-b fixed top-0 left-0 right-0 bg-gray-100">
@@ -40,18 +37,12 @@ function Navbar() {
                         </div>
                     </div>
                 </div>
-                {
-                    localStorage.getItem("token") ?
-                        <div>
+                <Link to="/login">
+                    <button className="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-indigo-500 hover:text-white rounded border border-indigo-700 text-indigo-700 px-4 sm:px-8 py-1 sm:py-3 text-sm transition-all">
+                        Login
+                    </button>
+                </Link>
 
-                        </div>
-                        :
-                        <Link to="/login">
-                            <button className="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-indigo-500 hover:text-white rounded border border-indigo-700 text-indigo-700 px-4 sm:px-8 py-1 sm:py-3 text-sm transition-all">
-                                Login
-                            </button>
-                        </Link>
-                }
             </div>
         </nav >
     );
