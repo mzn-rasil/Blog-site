@@ -54,9 +54,9 @@ function LoginPage() {
                     });
                 Cookies.set("userId", responseData.id,
                     {
-                        expires: 1 / 96,
+                        expires: 1,
                     })
-                navigate("../home");
+                navigate("../blogMenu/home");
             } else {
                 setError("emptyToken", {
                     type: "manual",
@@ -89,7 +89,7 @@ function LoginPage() {
         <LoginLayout>
             <NavLink to="/signUpStep1" className={`flex justify-center text-sm text-blue-700 underline`}>Create a new account</NavLink>
             <Error>{errors?.emptyToken?.message}</Error>
-            <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(submitHandler)}>
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit(submitHandler)}>
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="rounded-md shadow-sm -space-y-px">
                     <div>
@@ -125,8 +125,12 @@ function LoginPage() {
                     </div>
                 </div>
 
-                {/*May be have to add a <Link> component later on to perform forget password */}
-                <a className="text-sm flex justify-end text-blue-700 underline mt-6" href="#noth">Forgot your password?</a>
+                <NavLink
+                    to="/forgotPassword"
+                    className="text-sm flex justify-end text-blue-700 underline mt-6"
+                >
+                    Forgot your password?
+                </NavLink>
 
                 <div>
                     <button

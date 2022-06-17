@@ -9,21 +9,28 @@ import Home from "./components/blog/Home";
 import Notifications from "./components/blog/Notifications";
 import Bookmarks from "./components/blog/Bookmarks";
 import Stories from "./components/blog/Stories";
+import Write from "./components/blog/Write";
+import ForgotPassword from "./pages/login/ForgotPassword";
+import ResetCode from "./pages/login/ResetCode";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<BlogLandingPage />} />
-        <Route path="/signUpStep1" element={<SignUpStep1Page />} />
-        <Route path="/signUpStep2" element={<SignUpStep2Page />} />
-        <Route path="/signUpStep3" element={<SignUpStep3Page />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/blogForm" element={<BlogFeaturesPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="notifications" element={<Notifications />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/stories" element={<Stories />} />
+        <Route path="signUpStep1" element={<SignUpStep1Page />} />
+        <Route path="signUpStep2" element={<SignUpStep2Page />} />
+        <Route path="signUpStep3" element={<SignUpStep3Page />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="blogMenu" element={<BlogFeaturesPage />}>
+          <Route path="write" element={<Write />} />
+          <Route path="home" element={<Home />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="stories" element={<Stories />} />
+        </Route>
+        <Route path="forgotPassword" element={<ForgotPassword />} />
+        <Route path="forgotPassword/resetCode" element={<ResetCode />} />
       </Routes>
     </Router>
   );

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import Blog from "../../components/blog/Blog";
 import Navbar from "../../components/Navbar";
@@ -23,7 +24,7 @@ function BlogLandingPage() {
                             </div>
                             <div className="flex justify-center items-center">
                                 <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-indigo-700 py-2 sm:py-4 text-sm">
-                                    <Link to="/BlogForm">
+                                    <Link to={Cookies.get("token") ? "/blogForm" : "/login"}>
                                         Start Writing Your Blogs
                                     </Link>
                                 </button>
