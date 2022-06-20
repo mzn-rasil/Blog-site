@@ -5,6 +5,7 @@ import * as yup from "yup";
 import Error from "../../components/error/Error";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const schema = yup.object().shape({
     email: yup
@@ -40,7 +41,10 @@ function ForgotPassword() {
             console.log(resJSON.message);
             if (resJSON.message) {
                 console.log(resJSON);
-                navigate("./resetCode");
+                Cookies.set("reset_code", resJSON.reset_code);
+                alert("You can reset your code from your email. Please check your mail...");
+                navigate("./resetPassword")
+                // navigate("./resetCode");
             } else {
                 setError("email", {
                     type: "focus",
@@ -66,6 +70,7 @@ function ForgotPassword() {
                     id="email-address"
                     placeholder="Email address"
                     required
+                    autoComplete="email"
                     className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${errors?.email?.message && 'border-red-300'} placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
                     {...register("email")}
                 />
@@ -85,7 +90,7 @@ function ForgotPassword() {
                             </div>
                             :
                             <>
-                                Send verification link
+                                Send Verification Link
                             </>
                     }
                 </button>

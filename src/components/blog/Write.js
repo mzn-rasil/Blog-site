@@ -1,24 +1,41 @@
 import { Listbox } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 function Write() {
-    const [saveOption, setSaveOption] = useState("Choose save option");
+    const [saveOption, setSaveOption] = useState("Drafts");
 
     const { register, handleSubmit } = useForm({
         defaultValues: {
             title: undefined,
-            content: undefined,
+            story: undefined,
         }
     });
 
-    function submitHandler(data) {
+    async function submitHandler(data) {
         const blogData = {
             ...data,
-            blogSaveAs: saveOption
+            blogSaveAs: saveOption,
+            current_user: Cookies.get("token")?.split(" ")[1]
         }
 
         console.log(blogData);
+
+        try {
+            const res = await fetch("http://127.0.0.1:8000/posts/", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(blogData)
+            });
+            const resJSON = await res.json();
+
+            console.log(resJSON);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

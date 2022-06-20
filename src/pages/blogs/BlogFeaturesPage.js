@@ -28,7 +28,7 @@ function BlogFeaturesPage() {
     }, []);
 
     return (
-        <div>
+        <div className="pt-3">
             <div className="w-48 mr-52 px-10 py-6 bg-slate-50 h-screen fixed top-0 left-0 bottom-0
                 flex flex-col items-end gap-y-28 border-r-2 border-slate-300
             ">

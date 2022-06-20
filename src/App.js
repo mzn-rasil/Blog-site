@@ -11,7 +11,7 @@ import Bookmarks from "./components/blog/Bookmarks";
 import Stories from "./components/blog/Stories";
 import Write from "./components/blog/Write";
 import ForgotPassword from "./pages/login/ForgotPassword";
-import ResetCode from "./pages/login/ResetCode";
+import ResetPassword from "./pages/login/ResetPassword";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Route path="stories" element={<Stories />} />
         </Route>
         <Route path="forgotPassword" element={<ForgotPassword />} />
-        <Route path="forgotPassword/resetCode" element={<ResetCode />} />
+        <Route path="forgotPassword/resetPassword" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
