@@ -50,7 +50,7 @@ function LoginPage() {
             if (responseData.access_token) {
                 Cookies.set("token", `${responseData.token_type} ${responseData.access_token}`,
                     {
-                        expires: 1 / 96 // in fifteen minutes
+                        expires: 1, // in fifteen minutes
                     });
                 Cookies.set("userId", responseData.id,
                     {

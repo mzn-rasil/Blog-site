@@ -43,7 +43,7 @@ function Sidebar() {
             <div>
                 <ul className="flex flex-col gap-12 font-monospace pr-2">
                     <li>
-                        <NavLink to="/blogForm/home">
+                        <NavLink to="home">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 rounded-full hover:bg-indigo-200 hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -73,7 +73,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/blogForm/stories">
+                        <NavLink to="/blogForm/stories/drafts">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 hover:bg-indigo-200 rounded-full hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

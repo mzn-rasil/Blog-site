@@ -2,6 +2,7 @@ import { Listbox } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Write() {
     const [saveOption, setSaveOption] = useState("Drafts");
@@ -9,30 +10,34 @@ function Write() {
     const { register, handleSubmit } = useForm({
         defaultValues: {
             title: undefined,
-            story: undefined,
+            content: undefined,
         }
     });
+    const navigate = useNavigate();
 
     async function submitHandler(data) {
         const blogData = {
             ...data,
-            blogSaveAs: saveOption,
-            current_user: Cookies.get("token")?.split(" ")[1]
+            published: saveOption === "Drafts" ? false : true,
+            category: 'blog'
         }
 
         console.log(blogData);
 
         try {
+            const token = Cookies.get("token")?.split(" ")[1];
             const res = await fetch("http://127.0.0.1:8000/posts/", {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(blogData)
             });
             const resJSON = await res.json();
-
             console.log(resJSON);
+            alert(`Saved to ${saveOption}`);
+            navigate("/blogMenu/home");
         } catch (error) {
             console.log(error);
         }
@@ -109,7 +114,7 @@ function Write() {
                 rows="20"
                 placeholder="Tell your story..."
                 className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none"
-                {...register("story")}
+                {...register("content")}
             >
             </textarea>
         </form>

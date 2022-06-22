@@ -3,7 +3,9 @@
 function Notifications() {
     return (
         <div className="container w-2/4 p-3 mx-auto mt-6">
-            Notifications Page!!
+            <h2 className="font-black text-4xl text-indigo-700">
+                Notifications
+            </h2>
         </div>
     );
 }

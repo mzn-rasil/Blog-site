@@ -12,6 +12,8 @@ import Stories from "./components/blog/Stories";
 import Write from "./components/blog/Write";
 import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
+import Drafts from "./components/blog/Drafts";
+import Published from "./components/blog/Published";
 
 function App() {
   return (
@@ -23,11 +25,17 @@ function App() {
         <Route path="signUpStep3" element={<SignUpStep3Page />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="blogMenu" element={<BlogFeaturesPage />}>
-          <Route path="write" element={<Write />} />
+          <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
+          <Route path="write" element={<Write />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="bookmarks" element={<Bookmarks />} />
-          <Route path="stories" element={<Stories />} />
+
+          <Route path="stories" element={<Stories />}>
+            <Route index element={<Drafts />} />
+            <Route path="drafts" element={<Drafts />} />
+            <Route path="published" element={<Published />} />
+          </Route>
         </Route>
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="forgotPassword/resetPassword" element={<ResetPassword />} />

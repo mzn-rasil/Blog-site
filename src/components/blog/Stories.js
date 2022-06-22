@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 function Stories() {
     return (
@@ -7,15 +7,15 @@ function Stories() {
                 Your stories
             </h2>
 
-            <div className="w-full h-96 mt-16 border border-1 ">
+            <div className="w-full h-96 mt-16">
                 <div className="flex gap-8 font-serif text-slate-500">
                     <NavLink
-                        to="/drafts"
+                        to="drafts"
                         className="p-2"
                     >
                         {({ isActive }) => {
                             return <span
-                                className={`${isActive && "border-b-[2px] border-indigo-500"} hover:border-b-[2px] p-2`}
+                                className={`${isActive && "border-b-[3px] border-indigo-500"} hover:border-b-[3px] hover:border-indigo-500 p-2`}
                             >
                                 Drafts
                             </span>
@@ -23,18 +23,21 @@ function Stories() {
                     </NavLink>
 
                     <NavLink
-                        to="/published"
+                        to="published"
                         className="p-2"
                     >
                         {({ isActive }) => {
                             return <span
-                                className={`${isActive && "border-b-[2px] border-indigo-500"} hover:border-b-[2px] p-2`}
+                                className={`${isActive && "border-b-[3px] border-indigo-500"} hover:border-b-[3px] hover:border-indigo-500 p-2`}
                             >
                                 Published
                             </span>
                         }}
                     </NavLink>
                 </div>
+                <hr />
+
+                <Outlet />
             </div>
         </div>
     );
