@@ -10,8 +10,9 @@ function Stories() {
             <div className="w-full h-96 mt-16">
                 <div className="flex gap-8 font-serif text-slate-500">
                     <NavLink
-                        to="drafts"
+                        to="../stories"
                         className="p-2"
+                        end
                     >
                         {({ isActive }) => {
                             return <span
@@ -21,6 +22,7 @@ function Stories() {
                             </span>
                         }}
                     </NavLink>
+
 
                     <NavLink
                         to="published"

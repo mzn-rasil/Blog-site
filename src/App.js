@@ -24,6 +24,7 @@ function App() {
         <Route path="signUpStep2" element={<SignUpStep2Page />} />
         <Route path="signUpStep3" element={<SignUpStep3Page />} />
         <Route path="login" element={<LoginPage />} />
+
         <Route path="blogMenu" element={<BlogFeaturesPage />}>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
@@ -37,6 +38,7 @@ function App() {
             <Route path="published" element={<Published />} />
           </Route>
         </Route>
+
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="forgotPassword/resetPassword" element={<ResetPassword />} />
       </Routes>

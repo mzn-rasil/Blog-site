@@ -29,8 +29,8 @@ function BlogFeaturesPage() {
     }, []);
 
     function handleLogout() {
-        Cookies.set("token", "");
-        Cookies.set("userId", "");
+        Cookies.remove("token");
+        Cookies.remove("userId");
         setUserData(null);
         navigate("/");
     }
