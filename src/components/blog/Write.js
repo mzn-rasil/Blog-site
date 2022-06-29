@@ -1,19 +1,21 @@
 import { Listbox } from "@headlessui/react";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
 import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Write() {
     const [saveOption, setSaveOption] = useState("Drafts");
-
+    const [draft, setDraft] = useState(null);
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm({
         defaultValues: {
-            title: undefined,
-            content: undefined,
+            title: draft ? draft.title : "",
+            content: draft ? draft.content : "",
         }
     });
-    const navigate = useNavigate();
+
+    console.log(draft);
 
     async function submitHandler(data) {
         const blogData = {
@@ -26,7 +28,7 @@ function Write() {
 
         try {
             const token = Cookies.get("token")?.split(" ")[1];
-            const res = await fetch("http://127.0.0.1:8000/posts/", {
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -42,6 +44,25 @@ function Write() {
             console.log(error);
         }
     }
+
+    async function editHandler() {
+        try {
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${Cookies.get("draftId")}`);
+            const resJSON = await res.json();
+            return resJSON;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        const draftId = Cookies.get("draftId");
+        const isEditMode = draftId !== undefined;
+
+        if (isEditMode) {
+            console.log(editHandler().then(res => setDraft(res)));
+        }
+    }, []);
 
     return (
         <form className="container w-2/4 p-3 mx-auto mt-6" onSubmit={handleSubmit(submitHandler)}>

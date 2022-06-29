@@ -7,7 +7,7 @@ function Published() {
 
     useEffect(() => {
         async function getPublishedBlogs() {
-            const res = await fetch(`http://127.0.0.1:8000/draft/${true}`, {
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${true}`, {
                 method: "GET",
                 headers: {
                     "content-type": "application/json",
@@ -22,17 +22,14 @@ function Published() {
             const resPublishedBlogs = getPublishedBlogs();
 
             resPublishedBlogs
-                .then(publishedBlogs => {
-                    console.log(publishedBlogs);
-                    setPublishedBlogs(publishedBlogs);
-                })
+                .then(publishedBlogs => setPublishedBlogs(publishedBlogs))
                 .catch(error => console.log(error))
         } catch (error) {
             console.log(error);
         }
     }, []);
 
-    const publishedBlogElements = publishedBlogs && publishedBlogs.map(publishedBlog => (
+    const publishedBlogElements = publishedBlogs.length > 0 ? publishedBlogs.map(publishedBlog => (
         <div key={publishedBlog.id}>
             <h2 className="py-2">{publishedBlog.title}</h2>
             <p className="pb-4">
@@ -44,7 +41,8 @@ function Published() {
             </p>
             <hr />
         </div>
-    ))
+    )) :
+        "Your published list is empty..."
 
     return (
         <div className="px-2 py-4 font-serif">

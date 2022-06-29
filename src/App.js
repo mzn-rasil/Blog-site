@@ -14,6 +14,7 @@ import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
 import Drafts from "./components/blog/Drafts";
 import Published from "./components/blog/Published";
+import Edit from "./components/blog/Edit";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="write" element={<Write />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="edit" element={<Edit />} />
 
           <Route path="stories" element={<Stories />}>
             <Route index element={<Drafts />} />
