@@ -3,7 +3,7 @@
 function Button({ title, className, onClick }) {
     return (
         <button
-            className={`bg-indigo-500 text-white rounded-md mb-4 hover:bg-indigo-400 ${className}`}
+            className={`text-indigo-500 border border-indigo-700 rounded-md mb-4 hover:bg-indigo-500 hover:text-white ${className}`}
             onClick={onClick}
         >
             {title}

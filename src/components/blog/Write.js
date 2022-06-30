@@ -1,21 +1,24 @@
 import { Listbox } from "@headlessui/react";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { matchRoutes, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+const routes = [{ path: "/blogMenu/edit" }]
 
 function Write() {
     const [saveOption, setSaveOption] = useState("Drafts");
-    const [draft, setDraft] = useState(null);
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm({
+    const location = useLocation();
+    // const [{ route }] = matchRoutes(routes, location);
+    // console.log(route.path);
+    const [editMode, setEditMode] = useState(false);
+    const { register, handleSubmit, reset } = useForm({
         defaultValues: {
-            title: draft ? draft.title : "",
-            content: draft ? draft.content : "",
+            title: "",
+            content: "",
         }
     });
-
-    console.log(draft);
 
     async function submitHandler(data) {
         const blogData = {
@@ -28,16 +31,32 @@ function Write() {
 
         try {
             const token = Cookies.get("token")?.split(" ")[1];
-            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(blogData)
-            });
-            const resJSON = await res.json();
-            console.log(resJSON);
+            const draftId = Cookies.get("draftId");
+
+            if (editMode) {
+                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${draftId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(blogData)
+                });
+                const resJSON = await res.json();
+                console.log(resJSON);
+            } else {
+                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(blogData)
+                });
+                const resJSON = await res.json();
+                console.log(resJSON);
+            }
+
             alert(`Saved to ${saveOption}`);
             navigate("/blogMenu/home");
         } catch (error) {
@@ -56,13 +75,23 @@ function Write() {
     }
 
     useEffect(() => {
-        const draftId = Cookies.get("draftId");
-        const isEditMode = draftId !== undefined;
+        const isEditMode = matchRoutes(routes, location);
+        console.log(isEditMode);
 
         if (isEditMode) {
-            console.log(editHandler().then(res => setDraft(res)));
+            setEditMode(true);
+            console.log("reseting.. informations")
+            editHandler().then(blog => {
+                reset(blog);
+            });
+            return;
         }
-    }, []);
+
+        setEditMode(false);
+
+        // const draftId = Cookies.get("draftId");
+        // const isEditMode = draftId !== undefined;
+    }, [location, reset]);
 
     return (
         <form className="container w-2/4 p-3 mx-auto mt-6" onSubmit={handleSubmit(submitHandler)}>

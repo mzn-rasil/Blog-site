@@ -5,9 +5,11 @@ import Button from "../Button";
 
 function Drafts() {
     const [drafts, setDrafts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     async function getDrafts() {
+        setIsLoading(true);
         const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${false}`, {
             method: "GET",
             headers: {
@@ -20,7 +22,6 @@ function Drafts() {
     }
 
     async function handleDelete(id) {
-        console.log('clicked delete')
         try {
             await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, {
                 method: "DELETE",
@@ -35,6 +36,7 @@ function Drafts() {
                     .then(drafts => {
                         console.log(drafts)
                         setDrafts(drafts)
+                        setIsLoading(false);
                     })
                     .catch(error => console.log(error))
             } catch (error) {
@@ -57,13 +59,15 @@ function Drafts() {
             resDrafts
                 .then(drafts => setDrafts(drafts))
                 .catch(error => console.log(error))
+
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
     }, []);
 
     const draftElements = drafts.length > 0 ? drafts.map(draft => (
-        <div key={draft.id}>
+        <div key={draft.id} className="py-3">
             <h2 className="py-2 font-serif text-2xl">{draft.title}</h2>
             <p className="pb-4">
                 {draft.content.substring(0, 150)}...
@@ -85,7 +89,10 @@ function Drafts() {
 
     return (
         <div className="px-2 py-4 font-serif">
-            {draftElements}
+            {!isLoading ?
+                draftElements :
+                "Loading..."
+            }
         </div>
     );
 }
