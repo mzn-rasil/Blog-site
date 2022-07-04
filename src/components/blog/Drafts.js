@@ -22,6 +22,7 @@ function Drafts() {
     }
 
     async function handleDelete(id) {
+        setIsLoading(true);
         try {
             await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${id}`, {
                 method: "DELETE",
@@ -39,6 +40,7 @@ function Drafts() {
                         setIsLoading(false);
                     })
                     .catch(error => console.log(error))
+                setIsLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -85,13 +87,13 @@ function Drafts() {
             <hr />
         </div>
     )) :
-        "Your drafts is empty..."
+        "Your drafts is empty...";
 
     return (
         <div className="px-2 py-4 font-serif">
-            {!isLoading ?
-                draftElements :
-                "Loading..."
+            {
+                draftElements.length === 0 ? (isLoading ? "Loading..." : "Your drafts is empty...") :
+                    draftElements
             }
         </div>
     );

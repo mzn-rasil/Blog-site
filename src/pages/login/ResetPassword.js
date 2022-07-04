@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import ForgotPasswordLayout from "../../ui/ForgotPasswordLayout";
 import * as yup from "yup";
 import Error from "../../components/error/Error";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const schema = yup.object().shape({
     password: yup
@@ -26,11 +26,12 @@ function ResetPassword() {
         mode: "onBlur",
         resolver: yupResolver(schema)
     });
+    const [resetCode, setResetCode] = useState(null);
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
     async function submitHandler(data) {
         try {
-            const resetCode = Cookies.get("reset_code");
             const res = await fetch(`http://127.0.0.1:8000/user/forgot_password/${resetCode}`, {
                 method: "PATCH",
                 headers: {
@@ -38,9 +39,8 @@ function ResetPassword() {
                 },
                 body: JSON.stringify(data)
             })
-            const resJSON = res.json();
+            const resJSON = await res.json();
 
-            // idk why respone as a Promise return bhairako cha
             resJSON
                 .then(finalData => {
                     console.log(finalData);
@@ -54,6 +54,11 @@ function ResetPassword() {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        let resetCode = searchParams.get("reset_code");
+        setResetCode(resetCode);
+    }, [searchParams]);
 
     return (
         <ForgotPasswordLayout>

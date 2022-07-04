@@ -5,7 +5,6 @@ import * as yup from "yup";
 import Error from "../../components/error/Error";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const schema = yup.object().shape({
     email: yup
@@ -28,32 +27,28 @@ function ForgotPassword() {
     async function submitHandler(data) {
         setIsLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:8000/user/forgot_password", {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/user/forgot_password`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
                 },
                 body: JSON.stringify(data)
             });
-
             const resJSON = await response.json();
-            console.log(resJSON);
             console.log(resJSON.message);
-            if (resJSON.message) {
-                console.log(resJSON);
-                Cookies.set("reset_code", resJSON.reset_code);
-                alert("You can reset your code from your email. Please check your mail...");
-                navigate("./resetPassword")
-                // navigate("./resetCode");
-            } else {
-                setError("email", {
+
+            if (!resJSON.message) {
+                return setError("email", {
                     type: "focus",
                     message: resJSON.detail
                 }, {
                     shouldFocus: true
                 });
             }
+
+            alert(resJSON.message);
             setIsLoading(false);
+            navigate("./resendVerificationLink");
         } catch (error) {
             console.log(error);
         }

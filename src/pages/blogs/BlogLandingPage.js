@@ -35,11 +35,6 @@ function BlogLandingPage() {
                 {/* Code block ends */}
             </div>
             <Blog />
-            <Blog />
-            <Blog />
-            <Blog />
-            <Blog />
-
         </div>
 
     );

@@ -15,6 +15,7 @@ import ResetPassword from "./pages/login/ResetPassword";
 import Drafts from "./components/blog/Drafts";
 import Published from "./components/blog/Published";
 import Edit from "./components/blog/Edit";
+import ResendVerificationLink from "./pages/login/ResendVerificationLink";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         </Route>
 
         <Route path="forgotPassword" element={<ForgotPassword />} />
+        <Route path="forgotPassword/resendVerificationLink" element={<ResendVerificationLink />} />
         <Route path="forgotPassword/resetPassword" element={<ResetPassword />} />
       </Routes>
     </Router>

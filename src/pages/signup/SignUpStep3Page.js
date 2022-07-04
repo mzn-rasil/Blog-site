@@ -39,21 +39,21 @@ function LoginStep3Page() {
         formData.append("profileImage", profileImage[0]);
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/register", {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(userData),
             })
-            console.log(response);
             const data = await response.json();
+
             console.log(data);
 
             if (data) {
                 try {
-                    const response = await fetch(`http://127.0.0.1:8000/upload/${data.id}`, {
-                        method: "POST",
+                    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/upload/${data.id}`, {
+                        method: "PATCH",
                         body: formData
                     })
 
