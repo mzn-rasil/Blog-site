@@ -2,6 +2,8 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button";
+import { Edit } from "../../icons/Edit";
+import { Delete } from "../../icons/Delete";
 
 function Drafts() {
     const [drafts, setDrafts] = useState([]);
@@ -10,15 +12,20 @@ function Drafts() {
 
     async function getDrafts() {
         setIsLoading(true);
-        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${false}`, {
-            method: "GET",
-            headers: {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${Cookies.get("token")?.split(" ")[1]}`
-            }
-        });
-        const resJSON = await res.json();
-        return resJSON;
+        try {
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${false}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    "Authorization": `Bearer ${Cookies.get("token")?.split(" ")[1]}`
+                }
+            });
+            const drafts = await res.json();
+            setDrafts(drafts);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async function handleDelete(id) {
@@ -31,22 +38,11 @@ function Drafts() {
                     "Authorization": `Bearer ${Cookies.get("token").split(" ")[1]}`
                 }
             })
-            try {
-                const resDrafts = getDrafts();
-                resDrafts
-                    .then(drafts => {
-                        console.log(drafts)
-                        setDrafts(drafts)
-                        setIsLoading(false);
-                    })
-                    .catch(error => console.log(error))
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
         } catch (error) {
             // handle later on
         }
+        getDrafts();
+        setIsLoading(false);
     }
 
     function handleEdit(draftId) {
@@ -55,17 +51,7 @@ function Drafts() {
     }
 
     useEffect(() => {
-        try {
-            const resDrafts = getDrafts();
-
-            resDrafts
-                .then(drafts => setDrafts(drafts))
-                .catch(error => console.log(error))
-
-            setIsLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
+        getDrafts();
     }, []);
 
     const draftElements = drafts.length > 0 ? drafts.map(draft => (
@@ -75,13 +61,13 @@ function Drafts() {
                 {draft.content.substring(0, 150)}...
             </p>
             <Button
-                title="Edit"
-                className="p-1 mr-4 w-16"
+                icon={<Edit />}
+                className="p-2 mr-4"
                 onClick={() => handleEdit(draft.id)}
             />
             <Button
-                title="Delete"
-                className="p-1 mr-4 w-16"
+                icon={<Delete />}
+                className="p-1 mr-4"
                 onClick={() => handleDelete(draft.id)}
             />
             <hr />

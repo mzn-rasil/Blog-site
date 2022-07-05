@@ -48,7 +48,7 @@ function Sidebar() {
             </div>
 
             <div>
-                <ul className="flex flex-col gap-12 font-monospace pr-2">
+                <ul className="flex flex-col gap-6 font-monospace pr-2">
                     <li>
                         <NavLink to="../blogMenu/">
                             {({ isActive }) => {

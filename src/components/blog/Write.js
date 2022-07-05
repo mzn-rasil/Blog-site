@@ -58,7 +58,7 @@ function Write() {
             }
 
             alert(`Saved to ${saveOption}`);
-            navigate("/blogMenu/home");
+            navigate("/blogMenu/");
         } catch (error) {
             console.log(error);
         }

@@ -1,12 +1,12 @@
 
 
-function Button({ title, className, onClick }) {
+function Button({ icon, className, onClick }) {
     return (
         <button
-            className={`text-indigo-500 border border-indigo-700 rounded-md mb-4 hover:bg-indigo-500 hover:text-white ${className}`}
+            className={`text-indigo-500 mb-4 hover:bg-indigo-500 hover:rounded-full hover:text-white ${className}`}
             onClick={onClick}
         >
-            {title}
+            {icon}
         </button>
     );
 }

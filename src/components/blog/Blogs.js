@@ -6,15 +6,36 @@ import Profile from "../Profile";
 function Blogs() {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
-    console.log(blogs);
+    // console.log(blogs);
+
+
+    // console.log('Rasil', blogs[0]?.Post.title);
 
     useEffect(() => {
         async function getBlogs() {
             try {
-                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts`);
+                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts`, {
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                });
                 const blogPosts = await res.json();
+                // console.log(blogPosts);
+                setBlogs(blogPosts.map(blog => {
+                    // console.log(blog);
+                    const blogg = {
+                        ...blog.Post,
+                        likes: blog.likes
+                    };
+                    return blogg;
+                }));
 
-                setBlogs(blogPosts);
+                const arr = blogPosts.map(blog => blog.Post.owner.id);
+                // for (let blog of blogPosts) {
+                //     // console.log(blog);
+                //     arr.push(blog.Post.owner.id);
+                // }
+                console.log('ownnerIdArray', arr);
             } catch (error) {
                 console.log(error);
             }
@@ -22,8 +43,8 @@ function Blogs() {
         getBlogs();
     }, []);
 
-    const blogElements = blogs.length > 0 &&
-        blogs.filter(blog => blog.owner.id !== parseInt(Cookies.get("userId"))).map(blog => (
+    const blogElements = blogs?.length > 0 &&
+        blogs.filter(blog => blog?.owner?.id !== parseInt(Cookies.get("userId"))).map(blog => (
             <div key={blog.id} className="my-8">
                 <Profile blog={blog} />
 

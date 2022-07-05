@@ -34,7 +34,9 @@ function BlogLandingPage() {
                 </dh-component>
                 {/* Code block ends */}
             </div>
-            <Blogs />
+            <div className="w-2/3 mx-auto">
+                <Blogs />
+            </div>
         </div>
 
     );
