@@ -1,16 +1,24 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-
-async function handleResponse(userId) {
-    const response = await fetch(`http://127.0.0.1:8000/user/${userId}`);
-    const data = await response.json();
-    // console.log(data);
-    return data;
-}
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
     const [userData, setUserData] = useState(null);
+    const navigate = useNavigate();
+
+    function handleLogout() {
+        Cookies.remove("token");
+        Cookies.remove("userId");
+        setUserData(null);
+        navigate("/");
+    }
+
+    async function handleResponse(userId) {
+        const response = await fetch(`http://127.0.0.1:8000/user/${userId}`);
+        const data = await response.json();
+        // console.log(data);
+        return data;
+    }
 
     useEffect(() => {
         const userId = Cookies.get("userId");
@@ -28,7 +36,7 @@ function Sidebar() {
 
     return (
         <div className="w-48 mr-52 px-10 py-6 bg-slate-50 h-screen fixed top-0 left-0 bottom-0
-                flex flex-col items-end gap-y-28 border-r-2 border-slate-300
+                flex flex-col items-end justify-between border-r-2 border-slate-300
             ">
 
             <div className="mt-6">
@@ -39,11 +47,10 @@ function Sidebar() {
                 />
             </div>
 
-
             <div>
                 <ul className="flex flex-col gap-12 font-monospace pr-2">
                     <li>
-                        <NavLink to="home">
+                        <NavLink to="../blogMenu/">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 rounded-full hover:bg-indigo-200 hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -53,7 +60,7 @@ function Sidebar() {
                         </NavLink>
                     </li >
                     <li>
-                        <NavLink to="/blogForm/notifications">
+                        <NavLink to="../blogMenu/notifications">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 rounded-full hover:bg-indigo-200 hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -63,7 +70,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/blogForm/bookmarks">
+                        <NavLink to="../blogMenu/bookmarks">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 hover:bg-indigo-200 rounded-full hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -73,7 +80,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/blogForm/stories/drafts">
+                        <NavLink to="../blogMenu/stories">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 hover:bg-indigo-200 rounded-full hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -83,7 +90,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/blogForm/write">
+                        <NavLink to="../blogMenu/write">
                             {({ isActive }) => {
                                 return <svg xmlns="http://www.w3.org/2000/svg" className={`h-10 w-10 p-2 hover:bg-indigo-200 rounded-full hover:fill-indigo-500 ${isActive && "fill-indigo-500 bg-indigo-200"}`}
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -102,6 +109,12 @@ function Sidebar() {
                             className="w-10 h-10 rounded-full mb-2 border-2 border-indigo-500"
                         />
                         <p className="text-center font-bold text-indigo-500">{userData.firstName}</p>
+                        <button
+                            className="bg-indigo-500 text-white p-2 rounded-md mt-3 font-semibold hover:bg-indigo-600"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
                     </>
                 }
             </div>

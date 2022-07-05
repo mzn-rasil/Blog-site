@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-import Blog from "../../components/blog/Blog";
+import Blogs from "../../components/blog/Blogs";
 import Navbar from "../../components/Navbar";
 
 function BlogLandingPage() {
@@ -34,7 +34,7 @@ function BlogLandingPage() {
                 </dh-component>
                 {/* Code block ends */}
             </div>
-            <Blog />
+            <Blogs />
         </div>
 
     );

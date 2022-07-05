@@ -70,7 +70,7 @@ function Drafts() {
 
     const draftElements = drafts.length > 0 ? drafts.map(draft => (
         <div key={draft.id} className="py-3">
-            <h2 className="py-2 font-serif text-2xl">{draft.title}</h2>
+            <h2 className="py-2 font-bold text-xl">{draft.title}</h2>
             <p className="pb-4">
                 {draft.content.substring(0, 150)}...
             </p>

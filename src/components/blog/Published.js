@@ -7,32 +7,28 @@ function Published() {
 
     useEffect(() => {
         async function getPublishedBlogs() {
-            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${true}`, {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${Cookies.get("token")?.split(" ")[1]}`
-                }
-            });
-            const resJSON = await res.json();
-            return resJSON;
+            try {
+                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/draft/${true}`, {
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",
+                        "Authorization": `Bearer ${Cookies.get("token")?.split(" ")[1]}`
+                    }
+                });
+                const publishedBlogs = await res.json();
+                setPublishedBlogs(publishedBlogs);
+            } catch (error) {
+                console.log(error);
+            }
         }
 
-        try {
-            const resPublishedBlogs = getPublishedBlogs();
-
-            resPublishedBlogs
-                .then(publishedBlogs => setPublishedBlogs(publishedBlogs))
-                .catch(error => console.log(error))
-        } catch (error) {
-            console.log(error);
-        }
+        getPublishedBlogs();
     }, []);
 
     const publishedBlogElements = publishedBlogs.length > 0 ? publishedBlogs.map(publishedBlog => (
-        <div key={publishedBlog.id}>
-            <h2 className="py-2">{publishedBlog.title}</h2>
-            <p className="pb-4">
+        <div key={publishedBlog.id} className="flex flex-col text-justify gap-y-4 justify-space-around">
+            <h2 className="font-bold text-xl mt-4">{publishedBlog.title}</h2>
+            <p>
                 {/* {publishedBlog.content} */}
                 {publishedBlog.content.length > MAX_LEN ?
                     showReadMore(publishedBlog.content) :

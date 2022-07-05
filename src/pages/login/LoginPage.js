@@ -56,7 +56,7 @@ function LoginPage() {
                     {
                         expires: 1,
                     })
-                navigate("../blogMenu/home");
+                navigate("../blogMenu/");
             } else {
                 setError("emptyToken", {
                     type: "manual",

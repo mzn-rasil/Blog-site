@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
-import Blog from "./Blog";
+import Blogs from "./Blogs";
 
 function Home() {
     const [searchValue, setSearchValue] = useState(null);
@@ -39,7 +39,7 @@ function Home() {
         for (let query in blogQuery) {
             url.searchParams.append(query, blogQuery[query])
         }
-        console.log(url.href);
+        // console.log(url.href);
         // fetch(url)
         //     .then(result => console.log(result.url))
         //     .catch(error => console.log(error));
@@ -72,7 +72,7 @@ function Home() {
                     </form>
                 </label>
             </div>
-            <Blog />
+            <Blogs />
         </div>
     );
 }

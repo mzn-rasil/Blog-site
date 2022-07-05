@@ -10,7 +10,7 @@ function Stories() {
             <div className="w-full h-96 mt-16">
                 <div className="flex gap-8 font-serif text-slate-500">
                     <NavLink
-                        to="../stories"
+                        to="/blogMenu/stories"
                         className="p-2"
                         end
                     >
@@ -25,7 +25,7 @@ function Stories() {
 
 
                     <NavLink
-                        to="published"
+                        to="/blogMenu/stories/published"
                         className="p-2"
                     >
                         {({ isActive }) => {

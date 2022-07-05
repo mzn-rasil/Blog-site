@@ -16,6 +16,7 @@ import Drafts from "./components/blog/Drafts";
 import Published from "./components/blog/Published";
 import Edit from "./components/blog/Edit";
 import ResendVerificationLink from "./pages/login/ResendVerificationLink";
+import Blog from "./pages/blogs/Blog";
 
 function App() {
   return (
@@ -28,8 +29,8 @@ function App() {
         <Route path="login" element={<LoginPage />} />
 
         <Route path="blogMenu" element={<BlogFeaturesPage />}>
+          {/* <Route index element={<Home />} /> */}
           <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
           <Route path="write" element={<Write />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="bookmarks" element={<Bookmarks />} />
@@ -45,6 +46,8 @@ function App() {
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="forgotPassword/resendVerificationLink" element={<ResendVerificationLink />} />
         <Route path="forgotPassword/resetPassword" element={<ResetPassword />} />
+
+        <Route path="blogMenu/blogs" element={<Blog />} />
       </Routes>
     </Router>
   );
