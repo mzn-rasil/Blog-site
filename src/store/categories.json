@@ -1,0 +1,66 @@
+{
+    "categories": [{
+        "id": 1,
+        "field": "Food"
+    }, {
+        "id": 2,
+        "field": "Travel"
+    }, {
+        "id": 3,
+        "field": "Health and Fitness"
+    }, {
+        "id": 4,
+        "field": "Lifestyle"
+    }, {
+        "id": 5,
+        "field": "Fashion and beauty"
+    }, {
+        "id": 6,
+        "field": "Photography"
+    }, {
+        "id": 7,
+        "field": "Personal"
+    }, {
+        "id": 8,
+        "field": "DIY"
+    }, {
+        "id": 9,
+        "field": "Parenting"
+    }, {
+        "id": 10,
+        "field": "Music"
+    }, {
+        "id": 11,
+        "field": "Business"
+    }, {
+        "id": 12,
+        "field": "Art and Design"
+    }, {
+        "id": 13,
+        "field": "Book and Writing"
+    }, {
+        "id": 14,
+        "field": "Personal finance"
+    }, {
+        "id": 15,
+        "field": "Interior"
+    }, {
+        "id": 16,
+        "field": "Sports"
+    }, {
+        "id": 17,
+        "field": "News"
+    }, {
+        "id": 18,
+        "field": "Movie"
+    }, {
+        "id": 19,
+        "field": "Religion"
+    }, {
+        "id": 20,
+        "field": "Political"
+    }, {
+        "id": 21,
+        "field": "Other"
+    }]
+}

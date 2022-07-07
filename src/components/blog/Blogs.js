@@ -21,21 +21,7 @@ function Blogs() {
                 });
                 const blogPosts = await res.json();
                 // console.log(blogPosts);
-                setBlogs(blogPosts.map(blog => {
-                    // console.log(blog);
-                    const blogg = {
-                        ...blog.Post,
-                        likes: blog.likes
-                    };
-                    return blogg;
-                }));
-
-                const arr = blogPosts.map(blog => blog.Post.owner.id);
-                // for (let blog of blogPosts) {
-                //     // console.log(blog);
-                //     arr.push(blog.Post.owner.id);
-                // }
-                console.log('ownnerIdArray', arr);
+                setBlogs(blogPosts);
             } catch (error) {
                 console.log(error);
             }
@@ -44,7 +30,7 @@ function Blogs() {
     }, []);
 
     const blogElements = blogs?.length > 0 &&
-        blogs.filter(blog => blog?.owner?.id !== parseInt(Cookies.get("userId"))).map(blog => (
+        blogs.filter(blog => blog?.owner_id !== parseInt(Cookies.get("userId"))).map(blog => (
             <div key={blog.id} className="my-8">
                 <Profile blog={blog} />
 

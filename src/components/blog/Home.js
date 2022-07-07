@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
+import Error from "../error/Error";
 import Blogs from "./Blogs";
 
 function Home() {
@@ -16,7 +17,7 @@ function Home() {
     async function handleSubmit(event) {
         event.preventDefault();
         navigate({
-            pathname: "../home",
+            pathname: "..",
             search: `?${createSearchParams(params)}`
         });
         // try {
@@ -39,10 +40,21 @@ function Home() {
         for (let query in blogQuery) {
             url.searchParams.append(query, blogQuery[query])
         }
-        // console.log(url.href);
-        // fetch(url)
-        //     .then(result => console.log(result.url))
-        //     .catch(error => console.log(error));
+        console.log(url.href);
+
+        async function getQueryBlogs() {
+            try {
+                const res = await fetch(url);
+                const resJSON = await res.json();
+
+                console.log(resJSON);
+            } catch (error) {
+                console.log(error);
+                <Error>{error}</Error>
+            }
+        }
+
+        getQueryBlogs();
     }, [searchParams]);
 
     return (

@@ -24,7 +24,7 @@ function Blog() {
                 const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts/${blogId}`);
                 const blog = await res.json();
 
-                // console.log(blog);
+                console.log(blog);
                 setBlog(blog);
             } catch (error) {
                 console.log(error);
