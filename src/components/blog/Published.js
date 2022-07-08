@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Delete } from "../../icons/Delete";
 import { Edit } from "../../icons/Edit";
-import { MAX_LEN, showReadMore, showFullContent } from "../../utils/LongToShortText";
+import { showReadMore, showFullContent } from "../../utils/LongToShortText";
 import Button from "../Button";
 
 function Published() {
@@ -55,11 +55,11 @@ function Published() {
 
     const publishedBlogElements = publishedBlogs?.length > 0 ? publishedBlogs.map(publishedBlog => (
         <div key={publishedBlog.id} className="flex flex-col text-justify gap-y-4 justify-space-around">
-            <h2 className="font-bold text-xl mt-4">{publishedBlog.title}</h2>
+            <h2 className="font-bold font-sans text-2xl mt-4">{publishedBlog.title}</h2>
             <p>
                 {/* {publishedBlog.content} */}
-                {publishedBlog.content.length > MAX_LEN ?
-                    showReadMore(publishedBlog.content) :
+                {publishedBlog.content.length > 500 ?
+                    showReadMore(publishedBlog.content, 500) :
                     showFullContent(publishedBlog.content)
                 }
             </p>

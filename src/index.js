@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { UserProvider } from './store/UserContext';
+import "overlayscrollbars/css/OverlayScrollbars.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

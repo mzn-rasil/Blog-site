@@ -1,33 +1,10 @@
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Profile from "../Profile";
+import { showReadMore } from "../../utils/LongToShortText";
 
-function Blogs() {
-    const [blogs, setBlogs] = useState([]);
+function Blogs({ blogs }) {
     const navigate = useNavigate();
-    // console.log(blogs);
-
-
-    // console.log('Rasil', blogs[0]?.Post.title);
-
-    useEffect(() => {
-        async function getBlogs() {
-            try {
-                const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts`, {
-                    headers: {
-                        "content-type": "application/json"
-                    }
-                });
-                const blogPosts = await res.json();
-                // console.log(blogPosts);
-                setBlogs(blogPosts);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getBlogs();
-    }, []);
 
     const blogElements = blogs?.length > 0 &&
         blogs.filter(blog => blog?.owner_id !== parseInt(Cookies.get("userId"))).map(blog => (
@@ -51,7 +28,7 @@ function Blogs() {
                         search: `?id=${blog.id}`
                     })}
                 >
-                    {blog.content}
+                    {showReadMore(blog.content, 800)}
                 </p>
 
                 <hr className="my-6 border-1 border-slate-300" />

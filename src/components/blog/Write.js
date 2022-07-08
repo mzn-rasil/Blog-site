@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { matchRoutes, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import categories from "../../store/categories.json";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import "overlayscrollbars/css/OverlayScrollbars.css";
+
 
 const routes = [{ path: "/blogMenu/edit" }]
 
@@ -166,13 +169,13 @@ function Write() {
                             </svg></span>
                         </Listbox.Button>
                         <div className="relative">
-                            <Listbox.Options className="absolute border shadow-md w-full
+                            <Listbox.Options className="absolute border shadow-md w-full h-48 overflow-auto
                         text-sm mt-2 rounded-md">
                                 {
                                     categories.categories.map(category => (
                                         // console.log(categoryValue.field)
                                         <Listbox.Option key={category.id} value={category.field} className={({ active }) => `p-1 cursor-pointer hover:bg-indigo-500
-                                    hover:text-white hover:rounded-t-md ${active && "bg-indigo-500 text-white"}`}>
+                                        hover:text-white hover:rounded-t-md ${active && "bg-indigo-500 text-white"}`}>
                                             {({ selected }) => (
                                                 <div className="flex justify-between items-center">
                                                     <span className={`${selected && "font-bold"}`}>
@@ -200,13 +203,17 @@ function Write() {
                     {...register("title")}
                 />
             </div>
-            <textarea
-                rows="20"
-                placeholder="Tell your story..."
-                className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none"
-                {...register("content")}
+            <OverlayScrollbarsComponent
+                className="os-host os-theme-dark os-host-overflow"
             >
-            </textarea>
+                <textarea
+                    rows="20"
+                    placeholder="Tell your story..."
+                    className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none"
+                    {...register("content")}
+                >
+                </textarea>
+            </OverlayScrollbarsComponent>
         </form>
     );
 }

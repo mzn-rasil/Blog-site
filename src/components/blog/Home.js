@@ -4,6 +4,7 @@ import Error from "../error/Error";
 import Blogs from "./Blogs";
 
 function Home() {
+    const [blogs, setBlogs] = useState([]);
     const [searchValue, setSearchValue] = useState(null);
     const searchText = useRef(null);
     const navigate = useNavigate();
@@ -20,34 +21,30 @@ function Home() {
             pathname: "..",
             search: `?${createSearchParams(params)}`
         });
-        // try {
-        //     const res = await fetch(`${process.env.REACT_APP_BASE_URL}/posts?search=${searchValue}`);
-        //     const blogs = await res.json();
-        //     console.log(blogs);
-        // } catch (error) {
-        //     console.log(error);
-        // }
     }
 
     useEffect(() => {
-        const blogQuery = {
-            limit: 10,
-            skip: 0,
-            search: searchParams.get("search")
-        };
-        const url = new URL(`${process.env.REACT_APP_BASE_URL}/posts`);
-
-        for (let query in blogQuery) {
-            url.searchParams.append(query, blogQuery[query])
-        }
-        console.log(url.href);
-
+        // console.log(url.href);
         async function getQueryBlogs() {
+            const blogQuery = {
+                limit: 10,
+                skip: 0,
+            };
+            if (searchParams.get("search")) {
+                blogQuery.search = searchParams.get("search")
+            }
+            const url = new URL(`${process.env.REACT_APP_BASE_URL}/posts`);
+
+            for (let query in blogQuery) {
+                url.searchParams.append(query, blogQuery[query])
+            }
+
             try {
                 const res = await fetch(url);
-                const resJSON = await res.json();
+                const resBlogs = await res.json();
 
-                console.log(resJSON);
+                console.log(resBlogs);
+                setBlogs(resBlogs);
             } catch (error) {
                 console.log(error);
                 <Error>{error}</Error>
@@ -66,14 +63,14 @@ function Home() {
                 <label className="relative block">
                     <span className="sr-only">Search</span>
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </span>
                     <form onSubmit={handleSubmit}>
                         <input
                             className="placeholder:italic placeholder:text-slate-400 block bg-white 
-                            w-full border border-indigo-500 focus:border-indigo-700 rounded-md py-2 pl-9 pr-3 shadow-sm 
+                            w-full border-b-2 border-slate-400 py-2 pl-9 pr-3 shadow-sm 
                             focus:outline-none focus:border-indigo-500 sm:text-sm"
                             placeholder="Search"
                             type="text"
@@ -84,7 +81,7 @@ function Home() {
                     </form>
                 </label>
             </div>
-            <Blogs />
+            <Blogs blogs={blogs} />
         </div>
     );
 }
