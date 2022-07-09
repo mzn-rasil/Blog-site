@@ -4,13 +4,23 @@ import App from './App';
 import './index.css';
 import { UserProvider } from './store/UserContext';
 import "overlayscrollbars/css/OverlayScrollbars.css";
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <App />
-    </UserProvider>
+    <OverlayScrollbarsComponent
+      options={{
+        scrollbars: {
+          visibility: "auto",
+          autoHide: "move"
+        }
+      }}
+    >
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </OverlayScrollbarsComponent>
   </React.StrictMode>
 );
 

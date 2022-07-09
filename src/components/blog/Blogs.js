@@ -6,7 +6,7 @@ import { showReadMore } from "../../utils/LongToShortText";
 function Blogs({ blogs }) {
     const navigate = useNavigate();
 
-    const blogElements = blogs?.length > 0 &&
+    const blogElements = blogs?.length > 0 ?
         blogs.filter(blog => blog?.owner_id !== parseInt(Cookies.get("userId"))).map(blog => (
             <div key={blog.id} className="my-8">
                 <Profile blog={blog} />
@@ -33,7 +33,8 @@ function Blogs({ blogs }) {
 
                 <hr className="my-6 border-1 border-slate-300" />
             </div>
-        ));
+        )) :
+        <span className="font-bold text-2xl ">No results found</span>
 
     return (
         <div>

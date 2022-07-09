@@ -16,7 +16,9 @@ export const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{ userData, setData }}>
-            {children}
+            <div className="h-screen">
+                {children}
+            </div>
         </UserContext.Provider>
     );
 }

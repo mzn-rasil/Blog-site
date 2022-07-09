@@ -7,7 +7,6 @@ import categories from "../../store/categories.json";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/css/OverlayScrollbars.css";
 
-
 const routes = [{ path: "/blogMenu/edit" }]
 
 function Write() {
@@ -168,31 +167,43 @@ function Write() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                             </svg></span>
                         </Listbox.Button>
-                        <div className="relative">
-                            <Listbox.Options className="absolute border shadow-md w-full h-48 overflow-auto
-                        text-sm mt-2 rounded-md">
-                                {
-                                    categories.categories.map(category => (
-                                        // console.log(categoryValue.field)
-                                        <Listbox.Option key={category.id} value={category.field} className={({ active }) => `p-1 cursor-pointer hover:bg-indigo-500
-                                        hover:text-white hover:rounded-t-md ${active && "bg-indigo-500 text-white"}`}>
-                                            {({ selected }) => (
-                                                <div className="flex justify-between items-center">
-                                                    <span className={`${selected && "font-bold"}`}>
-                                                        {category.field}
-                                                    </span>
-                                                    {selected ? (
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    ) : null}
-                                                </div>
-                                            )}
-                                        </Listbox.Option>
-                                    ))
+                        <OverlayScrollbarsComponent
+                            options={{
+                                scrollbars: {
+                                    visibility: "auto",
+                                    autoHide: "leave",
                                 }
-                            </Listbox.Options>
-                        </div>
+                            }}
+                        >
+                            <div className="relative h-48">
+                                <Listbox.Options className="absolute border shadow-md w-full 
+                        text-sm rounded-md">
+                                    <div>
+                                        {
+                                            categories.categories.map(category => (
+                                                // console.log(categoryValue.field)
+                                                <Listbox.Option key={category.id} value={category.field} className={({ active }) => `p-1 cursor-pointer hover:bg-indigo-500
+                                        hover:text-white hover:rounded-t-md ${active && "bg-indigo-500 text-white"}`}>
+                                                    {({ selected }) => (
+                                                        <div className="flex justify-between items-center">
+                                                            <span className={`${selected && "font-bold"}`}>
+                                                                {category.field}
+                                                            </span>
+                                                            {selected ? (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                                </svg>
+                                                            ) : null}
+                                                        </div>
+                                                    )}
+                                                </Listbox.Option>
+                                            ))
+                                        }
+                                    </div>
+                                </Listbox.Options>
+                            </div>
+
+                        </OverlayScrollbarsComponent>
                     </Listbox>
                 </div>
                 <input
@@ -202,19 +213,21 @@ function Write() {
                     autoFocus={true}
                     {...register("title")}
                 />
-            </div>
+            </div >
             <OverlayScrollbarsComponent
                 className="os-host os-theme-dark os-host-overflow"
             >
-                <textarea
-                    rows="20"
-                    placeholder="Tell your story..."
-                    className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none"
-                    {...register("content")}
-                >
-                </textarea>
-            </OverlayScrollbarsComponent>
-        </form>
+                <div className="">
+                    <textarea
+                        rows="20"
+                        placeholder="Tell your story..."
+                        className="w-full h-full focus:outline-none p-2 border-b-2 focus:border-indigo-500 text-lg font-serif resize-none text-justify"
+                        {...register("content")}
+                    >
+                    </textarea>
+                </div>
+            </OverlayScrollbarsComponent >
+        </form >
     );
 }
 
